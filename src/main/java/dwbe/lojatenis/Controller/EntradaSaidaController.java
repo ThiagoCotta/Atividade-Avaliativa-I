@@ -1,29 +1,32 @@
 package dwbe.lojatenis.Controller;
 
+import dwbe.lojatenis.DAO.EntradaSaidaDAO;
+import dwbe.lojatenis.DAO.EstoqueDAO;
+import dwbe.lojatenis.DTO.EntradaSaidaDTO;
 import dwbe.lojatenis.Model.EntradaSaida;
+import dwbe.lojatenis.Model.Estoque;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@RestController
+@RequestMapping("/entradaSaida")
 public class EntradaSaidaController {
-    private List<EntradaSaida> database = new ArrayList<>();
+    private EntradaSaidaDAO entradaSaidaDAO;
 
-    public void gravar(EntradaSaida entradaSaida){
-        database.add(entradaSaida);
+    public EntradaSaidaController() {
+        this.entradaSaidaDAO = new EntradaSaidaDAO();
     }
-
-    public void alterar(EntradaSaida entradaSaida){
-        int index = database.indexOf(entradaSaida);
-        database.set(index,entradaSaida);
-    }
-
-    public EntradaSaida buscarPorId(String id){
-        int index = database.indexOf(id);
-        EntradaSaida selectEntradaSaida = database.get(index);
-        return selectEntradaSaida;
-    }
-
-    public List<EntradaSaida> listar(){
-        return database;
+    @PostMapping("/cadastrarEntradaSaida")
+    public void cadastrarEstoque(@RequestBody EntradaSaidaDTO EntradaSaidaDTO) {
+        var entradaSaida = new EntradaSaida(
+                EntradaSaidaDTO.getQtd(),
+                EntradaSaidaDTO.getValor(),
+                EntradaSaidaDTO.getData(),
+                EntradaSaidaDTO.getProdutoId()
+        );
+        entradaSaidaDAO.cadastrarEntradaSaida(entradaSaida);
     }
 }

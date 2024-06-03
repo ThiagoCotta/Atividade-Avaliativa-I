@@ -1,29 +1,48 @@
 package dwbe.lojatenis.Controller;
 
+import dwbe.lojatenis.DAO.ClienteDAO;
+import dwbe.lojatenis.DTO.ClienteDTO;
 import dwbe.lojatenis.Model.Cliente;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
+@RequestMapping("/cliente")
 public class ClienteController {
-    private List<Cliente> database = new ArrayList<>();
+    private ClienteDAO clienteDAO;
 
-    public void gravar(Cliente cliente){
-        database.add(cliente);
+    public ClienteController() {
+        this.clienteDAO = new ClienteDAO();
     }
 
-    public void alterar(Cliente cliente){
-        int index = database.indexOf(cliente);
-        database.set(index,cliente);
+    @PostMapping("/cadastrarCliente")
+    public void cadastrarCliente(@RequestBody ClienteDTO clienteDTO) {
+        var cliente = new Cliente(
+                clienteDTO.getNome(),
+                clienteDTO.getCpf(),
+                clienteDTO.getEndereco(),
+                clienteDTO.getSexo(),
+                clienteDTO.getTelefone(),
+                clienteDTO.getEmail(),
+                clienteDTO.getStatus()
+        );
+        clienteDAO.cadastrarCliente(cliente);
     }
 
-    public Cliente buscarPorId(String id){
-        int index = database.indexOf(id);
-        Cliente selectCliente = database.get(index);
-        return selectCliente;
+    @GetMapping("/listarClientes")
+    public List<Cliente> listarClientes() {
+        return clienteDAO.listarClientes();
     }
 
-    public List<Cliente> listar(){
-        return database;
+    @GetMapping("/buscarCliente/{id}")
+    public Cliente buscarCliente(@PathVariable int id) {
+        return clienteDAO.buscarCliente(id);
+    }
+
+    @GetMapping("/excluirCliente/{id}")
+    public void excluirCliente(@PathVariable int id) {
+        clienteDAO.excluirCliente(id);
     }
 }
