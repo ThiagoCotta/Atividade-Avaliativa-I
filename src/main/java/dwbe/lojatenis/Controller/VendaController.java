@@ -1,29 +1,36 @@
 package dwbe.lojatenis.Controller;
 
+import dwbe.lojatenis.DAO.VendaDAO;
+import dwbe.lojatenis.DTO.VendaDTO;
 import dwbe.lojatenis.Model.Venda;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
+@RequestMapping("/venda")
 public class VendaController {
-    private List<Venda> database = new ArrayList<>();
+    private VendaDAO vendaDAO;
 
-    public void gravar(Venda venda){
-        database.add(venda);
+    public VendaController() {
+        this.vendaDAO = new VendaDAO();
     }
 
-    public void alterar(Venda venda){
-        int index = database.indexOf(venda);
-        database.set(index,venda);
+    @PostMapping("/cadastrarVenda")
+    public void cadastrarVenda(@RequestBody VendaDTO vendaDTO) {
+        var venda = new Venda(
+                vendaDTO.getQtd(),
+                vendaDTO.getValor(),
+                vendaDTO.getData(),
+                vendaDTO.getProdutoId(),
+                vendaDTO.getClienteId()
+        );
+        vendaDAO.cadastrarVenda(venda);
     }
 
-    public Venda buscarPorId(String id){
-        int index = database.indexOf(id);
-        Venda selectVenda = database.get(index);
-        return selectVenda;
-    }
-
-    public List<Venda> listar(){
-        return database;
+    @RequestMapping("/listarVendas")
+    public List<Venda> listarVendas() {
+        return vendaDAO.listarVendas();
     }
 }
