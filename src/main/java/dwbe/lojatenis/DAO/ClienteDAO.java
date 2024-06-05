@@ -1,19 +1,20 @@
 package dwbe.lojatenis.DAO;
 
 import dwbe.lojatenis.Model.Cliente;
-import dwbe.lojatenis.Model.DatabaseConnection;
 import dwbe.lojatenis.Model.Pessoa;
-import dwbe.lojatenis.Model.Produto;
+import dwbe.lojatenis.Util.DatabaseConnection;
+import dwbe.lojatenis.Util.SQLExceptionUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDAO {
+
     private Connection connection;
 
     public ClienteDAO() {
-        connection = DatabaseConnection.getConnection();
+        this.connection = DatabaseConnection.getConnection();
     }
 
     public void cadastrarCliente(Cliente cliente) {
@@ -41,12 +42,14 @@ public class ClienteDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            SQLExceptionUtil.handleSQLException(e);
+        } finally {
+            DatabaseConnection.closeConnection();
         }
     }
+
     public List<Cliente> listarClientes() {
         List<Cliente> clientes = new ArrayList<>();
-
         String sql = "SELECT * FROM Cliente INNER JOIN Pessoa ON Cliente.id = Pessoa.id";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -67,7 +70,9 @@ public class ClienteDAO {
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            SQLExceptionUtil.handleSQLException(e);
+        } finally {
+            DatabaseConnection.closeConnection();
         }
 
         return clientes;
@@ -94,11 +99,14 @@ public class ClienteDAO {
                 cliente.setId(id);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            SQLExceptionUtil.handleSQLException(e);
+        } finally {
+            DatabaseConnection.closeConnection();
         }
 
         return cliente;
     }
+
     public void excluirCliente(int id) {
         String sql = "DELETE FROM Cliente WHERE id = ?";
 
@@ -111,7 +119,9 @@ public class ClienteDAO {
                 throw new SQLException("Falhou ao deletar o Cliente.");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            SQLExceptionUtil.handleSQLException(e);
+        } finally {
+            DatabaseConnection.closeConnection();
         }
     }
 }
