@@ -11,20 +11,19 @@ public class Fornecedor extends Pessoa {
     private String dataDeAbertura;
     private String porte;
     private String atividadeEconomicaPrincipal;
-    private String situcaoCadastral;
-    private List<Produto> produtosAVenda;
+    private String situacaoCadastral;
 
-    public Fornecedor(String id, String nome, String cpf, String endereco, String sexo, String telefone, String email, String cnpj, int numeroInscricao, String nomeFantasia, String dataDeAbertura, String porte, String atividadeEconomicaPrincipal, String  situcaoCadastral) {
-        super(id, nome, cpf, endereco, sexo, telefone, email);
+    public Fornecedor(String nome, String cpf, String endereco, String sexo, String telefone, String email, String cnpj, int numeroInscricao, String nomeFantasia, String dataDeAbertura, String porte, String atividadeEconomicaPrincipal, String  situacaoCadastral) {
+        super(nome, cpf, endereco, sexo, telefone, email);
         this.cnpj = cnpj;
         this.numeroInscricao = numeroInscricao;
         this.nomeFantasia = nomeFantasia;
         this.dataDeAbertura = dataDeAbertura;
         this.porte = porte;
         this.atividadeEconomicaPrincipal = atividadeEconomicaPrincipal;
-        this.situcaoCadastral = situcaoCadastral;
-        this.produtosAVenda = new ArrayList<Produto>();
+        this.situacaoCadastral = situacaoCadastral;
     }
+
     public int getNumeroInscricao() {
         return numeroInscricao;
     }
@@ -65,12 +64,12 @@ public class Fornecedor extends Pessoa {
         this.atividadeEconomicaPrincipal = atividadeEconomicaPrincipal;
     }
 
-    public String getSitucaoCadastral() {
-        return situcaoCadastral;
+    public String getSituacaoCadastral() {
+        return situacaoCadastral;
     }
 
-    public void setSitucaoCadastral(String situcaoCadastral) {
-        this.situcaoCadastral = situcaoCadastral;
+    public void setSituacaoCadastral(String situacaoCadastral) {
+        this.situacaoCadastral = situacaoCadastral;
     }
 
     public String getCnpj() {
@@ -81,31 +80,17 @@ public class Fornecedor extends Pessoa {
         this.cnpj = cnpj;
     }
 
-    public List<Produto> getProdutosAVenda() {
-        return this.produtosAVenda;
-    }
-
-    public void setProdutosAVenda(Produto produto) {
-        this.produtosAVenda.add(produto);
-    }
-
     @Override
     public String toString() {
         return "FORNECEDOR{" +
                 "id='" + super.getId() + '\'' +
-                ", nome=" + super.getNome() +
-                ", cpf='" + super.getCpf() + '\'' +
-                ", endereco='" + super.getEndereco() + '\'' +
-                ", sexo='" + super.getSexo() + '\'' +
-                ", telefone='" + super.getTelefone() + '\'' +
-                ", email='" + super.getEmail() + '\'' +
                 ", cnpj='" + this.getCnpj() + '\'' +
                 ", numeroInscricao='" + this.getNumeroInscricao() + '\'' +
                 ", nomeFantasia='" + this.getNomeFantasia() + '\'' +
                 ", dataDeAbertura='" + this.getDataDeAbertura() + '\'' +
                 ", porte='" + this.getPorte() + '\'' +
                 ", atividadeEconomicaPrincipal='" + this.getAtividadeEconomicaPrincipal() + '\'' +
-                ", situcaoCadastral='" + this.getSitucaoCadastral() + '\'' +
+                ", situacaoCadastral='" + this.getSituacaoCadastral() + '\'' +
                 '}';
     }
 }

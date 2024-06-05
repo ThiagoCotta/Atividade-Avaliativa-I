@@ -1,7 +1,9 @@
 package dwbe.lojatenis.Model;
 
+import java.sql.*;
+
 public class Pessoa {
-    private String id;
+    private  int id;
     private String nome;
     private String cpf;
     private String endereco;
@@ -9,8 +11,7 @@ public class Pessoa {
     private String telefone;
     private String email;
 
-    public Pessoa(String id, String nome, String cpf, String endereco, String sexo, String telefone, String email) {
-        this.id = id;
+    public Pessoa(String nome, String cpf, String endereco, String sexo, String telefone, String email) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
@@ -19,11 +20,10 @@ public class Pessoa {
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
-
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

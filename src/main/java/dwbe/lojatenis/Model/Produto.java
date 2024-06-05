@@ -1,30 +1,29 @@
 package dwbe.lojatenis.Model;
 
 public class Produto {
-    private String id;
+    private int id;
     private double preco;
     private String tamanho;
     private String cor;
     private String marca;
     private String tipo;
+    private int fornecedorId;
 
-    public Produto(String id, double preco, String tamanho, String cor, String marca, String tipo) {
-        this.id = id;
+    public Produto(double preco, String tamanho, String cor, String marca, String tipo, int fornecedorId) {
         this.preco = preco;
         this.tamanho = tamanho;
         this.cor = cor;
         this.marca = marca;
         this.tipo = tipo;
+        this.fornecedorId = fornecedorId;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
-
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
-
     public double getPreco() {
         return preco;
     }
@@ -63,6 +62,14 @@ public class Produto {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public int getFornecedorId() {
+        return fornecedorId;
+    }
+
+    public void setFornecedorId(int fornecedorId) {
+        this.fornecedorId = fornecedorId;
     }
 
     public boolean vender(int quantidade, Estoque estoque) {

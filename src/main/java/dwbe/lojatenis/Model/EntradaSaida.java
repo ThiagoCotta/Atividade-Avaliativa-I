@@ -1,27 +1,30 @@
 package dwbe.lojatenis.Model;
 
+import dwbe.lojatenis.DAO.ProdutoDAO;
+
 import java.util.Date;
 
 public class EntradaSaida {
-    private String id;
+    private int id;
     private int qtd;
     private double valor;
     private Date data;
-    private Produto produto;
+    private int produtoId;
+    ProdutoDAO produtoDao;
 
-    public EntradaSaida(String id, int qtd, double valor, Date data, Produto produto) {
-        this.id = id;
+    public EntradaSaida(int qtd, double valor, Date data, int produtoId) {
         this.qtd = qtd;
         this.valor = valor;
         this.data = data;
-        this.produto = produto;
+        this.produtoId = produtoId;
+        produtoDao = new ProdutoDAO();
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,12 +52,12 @@ public class EntradaSaida {
         this.data = data;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public int getProdutoId() {
+        return produtoId;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setProduto(int produtoId) {
+        this.produtoId = produtoId;
     }
 
     @Override
@@ -64,7 +67,7 @@ public class EntradaSaida {
                 ", qtd=" + qtd +
                 ", valor=" + valor +
                 ", data=" + data +
-                ", produto=" + produto +
+                ", produto=" + produtoDao.buscarProduto(this.produtoId) +
                 '}';
     }
 }
