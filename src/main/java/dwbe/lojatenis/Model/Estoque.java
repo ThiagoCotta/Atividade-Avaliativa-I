@@ -1,25 +1,28 @@
 package dwbe.lojatenis.Model;
 
+import dwbe.lojatenis.DAO.ProdutoDAO;
+
 public class Estoque {
-    private String id;
+    private int id;
     private int qtd;
     private int estoqueMinimo;
     private int estoqueMaximo;
-    private Produto produto;
+    private int produtoId;
+    ProdutoDAO produtoDao;
 
-    public Estoque(String id, int qtd, int estoqueMinimo, int estoqueMaximo, Produto produto) {
-        this.id = id;
+    public Estoque(int qtd, int estoqueMinimo, int estoqueMaximo, int produtoId) {
         this.qtd = qtd;
         this.estoqueMinimo = estoqueMinimo;
         this.estoqueMaximo = estoqueMaximo;
-        this.produto = produto;
+        this.produtoId = produtoId;
+        produtoDao = new ProdutoDAO();
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -47,12 +50,12 @@ public class Estoque {
         this.estoqueMaximo = estoqueMaximo;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public int getProdutoId() {
+        return this.produtoId;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setProdutoId(int produtoId) {
+        this.produtoId = produtoId;
     }
 
     @Override
@@ -60,9 +63,7 @@ public class Estoque {
         return "Estoque{" +
                 "id='" + id + '\'' +
                 ", qtd=" + qtd +
-                ", estoqueMinimo=" + estoqueMinimo +
-                ", estoqueMaximo=" + estoqueMaximo +
-                ", produto=" + produto +
+                ", produto=" + produtoDao.buscarProduto(this.produtoId) +
                 '}';
     }
 }

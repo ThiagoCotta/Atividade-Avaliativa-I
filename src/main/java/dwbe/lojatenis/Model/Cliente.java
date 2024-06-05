@@ -4,22 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Pessoa {
-
     private String status;
-    private List<Venda> historicoCompras;
 
-    public Cliente(String id, String nome, String cpf, String endereco, String sexo, String telefone, String email, String status) {
-        super(id, nome, cpf, endereco, sexo, telefone, email);
+    public Cliente(String nome, String cpf, String endereco, String sexo, String telefone, String email, String status) {
+        super(nome, cpf, endereco, sexo, telefone, email);
         this.status = status;
-        this.historicoCompras = new ArrayList<>();
-    }
-
-    public void adicionarVenda(Venda venda) {
-        historicoCompras.add(venda);
-    }
-
-    public List<Venda> obterHistoricoCompras() {
-        return historicoCompras;
     }
     public String getStatus() {
         return status;

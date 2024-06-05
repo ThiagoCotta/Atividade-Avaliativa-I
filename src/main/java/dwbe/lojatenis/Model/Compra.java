@@ -1,32 +1,39 @@
 package dwbe.lojatenis.Model;
 
+import dwbe.lojatenis.DAO.FornecedorDAO;
+import dwbe.lojatenis.DAO.ProdutoDAO;
+
 import java.util.Date;
 
 public class Compra extends EntradaSaida {
-    private Fornecedor fornecedor;
+    private int fornecedorId;
+    private ProdutoDAO produtoDao;
+    private FornecedorDAO fornecedorDao;
 
-    public Compra(String id, int qtd, double valor, Date data, Produto produto, Fornecedor fornecedor) {
-        super(id, qtd, valor, data, produto);
-        this.fornecedor = fornecedor;
+    public Compra(int qtd, double valor, Date data, int produtoId, int fornecedorId) {
+        super(qtd, valor, data, produtoId);
+        this.fornecedorId = fornecedorId;
+        this.produtoDao = new ProdutoDAO();
+        this.fornecedorDao = new FornecedorDAO();
     }
 
-    public Fornecedor getFornecedor() {
-        return fornecedor;
+    public int getFornecedorId() {
+        return fornecedorId;
     }
 
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setFornecedorId(int fornecedor) {
+        this.fornecedorId = fornecedor;
     }
 
     @Override
     public String toString() {
         return "Compra{" +
-                "fornecedor=" + fornecedor +
+                "fornecedor=" + fornecedorDao +
                 ", id='" + getId() + '\'' +
                 ", qtd=" + getQtd() +
                 ", valor=" + getValor() +
                 ", data=" + getData() +
-                ", produto=" + getProduto() +
+                ", produto=" + produtoDao.buscarProduto(super.getProdutoId()) +
                 '}';
     }
 }
